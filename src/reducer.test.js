@@ -10,6 +10,7 @@ describe('reducer', () => {
         expect(state.correctAnswer).toBeLessThanOrEqual(100);
         expect(state.correctAnswer).toBeGreaterThanOrEqual(1);
     });
+
     describe('makeGuess', () => {
         it('should add each new guess to guesses array & provide feedback', () => {
             let state = {
@@ -32,4 +33,17 @@ describe('reducer', () => {
         });
     });
 
+    describe('generateAuralUpdate', () => {
+        it('should add an aural status to the state', () => {
+            let state = {
+                guesses: [99, 12, 1],
+                auralStatus: '',
+                feedback: "You got it!",
+                correctAnswer: 1
+            };
+
+            state = reducer(state, generateAuralUpdate());
+            expect(state.auralStatus).toEqual(`Here's the status of the game right now: You got it! You've made 3 guesses. In order of most- to least-recent, they are: 1, 12, 99`);
+        });
+    });
 });
