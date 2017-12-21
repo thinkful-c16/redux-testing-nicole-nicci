@@ -46,4 +46,23 @@ describe('reducer', () => {
             expect(state.auralStatus).toEqual(`Here's the status of the game right now: You got it! You've made 3 guesses. In order of most- to least-recent, they are: 1, 12, 99`);
         });
     });
+
+    describe('restartGame', () => {
+        it('should reset state and generate new correctAnswer value', () => {
+            let state = {
+                guesses: [2, 4, 6, 8],
+                auralStatus: '',
+                feedback: 'You got it!',
+                correctAnswer: 74
+            };
+            
+            const newCorrectAnswer = 32;
+            state = reducer(state, restartGame(newCorrectAnswer));
+            expect(state.guesses).toEqual([]);
+            expect(state.auralStatus).toEqual('');
+            expect(state.feedback).toEqual('Make your guess!');
+            expect(state.correctAnswer).toEqual(newCorrectAnswer);
+            expect(state.correctAnswer).not.toBe(74);
+        });
+    });
 });
