@@ -10,4 +10,26 @@ describe('reducer', () => {
         expect(state.correctAnswer).toBeLessThanOrEqual(100);
         expect(state.correctAnswer).toBeGreaterThanOrEqual(1);
     });
-})
+    describe('makeGuess', () => {
+        it('should add each new guess to guesses array & provide feedback', () => {
+            let state = {
+                guesses: [],
+                feedback: '',
+                correctAnswer: 1
+            };
+
+            state = reducer(state, makeGuess(99));
+            expect(state.guesses).toEqual([99]);
+            expect(state.feedback).toEqual("You're Ice Cold...");
+
+            state = reducer(state, makeGuess(12));
+            expect(state.guesses).toEqual([99, 12]);
+            expect(state.feedback).toEqual("You're Warm.");
+
+            state = reducer(state, makeGuess(1));
+            expect(state.guesses).toEqual([99, 12, 1]);
+            expect(state.feedback).toEqual("You got it!");
+        });
+    });
+
+});
